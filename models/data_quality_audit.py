@@ -1,3 +1,5 @@
+from pathlib import Path
+ROOT = Path(__file__).resolve().parents[1]
 import csv
 import json
 import os
@@ -15,7 +17,7 @@ spark = (
 )
 spark.sparkContext.setLogLevel("WARN")
 
-BASE = "data/processed"
+BASE = str(ROOT / "data" / "processed")
 OUT = "analysis/results/data_quality_audit"
 os.makedirs(OUT, exist_ok=True)
 
