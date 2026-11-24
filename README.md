@@ -1,152 +1,185 @@
-# Book Management System
+# Book-Crossing Big Data Analytics
 
-A web-based Book Management System built with Flask and PostgreSQL. The application is containerized using Docker and Docker Compose and published on Docker Hub.
+A Big Data Analytics project built on the Book-Crossing dataset. The project uses **Apache Spark / PySpark** for data preparation, quality assessment, exploratory analysis, recommendation modelling, model comparison, and scalability experiments.
 
-## Features
+> This repository is the Big Data Analytics project. The older Flask/PostgreSQL Book Management application is not the focus of this README.
 
-- Add books with a title and author.
-- View all stored books.
-- Delete books.
-- Automatically create the database table when the application starts.
-- Persist database data using a Docker named volume.
-- Run the application and database in separate containers.
+## Project objectives
 
-## Technologies
+- Inspect and assess the quality of the Book-Crossing Books, Users, and Ratings datasets.
+- Clean and transform the data with PySpark.
+- Explore rating behaviour, book popularity, user activity, and publication-year patterns.
+- Compare recommendation / rating-prediction approaches, including Spark MLlib ALS and Random Forest, against a global-mean baseline.
+- Measure runtime behaviour at multiple data-volume levels.
 
+## Technology stack
+
+- Apache Spark 3.5.6 and PySpark
+- Spark SQL and Spark MLlib
 - Python
-- Flask
-- PostgreSQL 16
-- psycopg2
-- Gunicorn
-- Docker
-- Docker Compose
+- Matplotlib for generated figures
+- Java 11 (compatible Spark runtime)
 
-## Project Structure
+## Repository structure
 
 ```text
-BookManagement/
-|-- app.py
-|-- Dockerfile
-|-- docker-compose.yml
-|-- requirements.txt
-|-- .dockerignore
-|-- .gitignore
-|-- .env.example
-|-- .env (created locally; not committed)
-`-- README.md
+.
+├── analysis/
+│   ├── clean_with_spark.py
+│   ├── eda_with_spark.py
+│   ├── extended_eda.py
+│   ├── inspect_dataset.py
+│   ├── quality_checks.py
+│   ├── relationship_checks.py
+│   ├── create_visualizations.py
+│   └── results/
+│       ├── data_quality_audit/
+│       ├── fair_model_comparison/
+│       ├── figures/
+│       ├── als_recommender/
+│       ├── als_tuning/
+│       └── scalability_experiment_repeated/
+├── models/
+│   ├── als_recommender.py
+│   ├── als_tuning.py
+│   ├── random_forest_rating.py
+│   ├── fair_model_comparison.py
+│   ├── data_quality_audit.py
+│   └── scalability_experiment_repeated.py
+├── data/
+│   ├── raw/          # Original CSV files
+│   └── processed/    # Generated Parquet data (not committed)
+├── requirements-bigdata.txt
+└── README.md
 ```
 
-## Docker Hub
+## Dataset
 
-Repository: https://hub.docker.com/r/mohammedmoneer1998/book-management
+The project uses the Book-Crossing dataset, including:
 
-Image: `mohammedmoneer1998/book-management:v1.1`
+- `Books.csv`: book metadata.
+- `Users.csv`: user attributes.
+- `Ratings.csv`: user-book rating interactions.
 
-Pull the image:
+Place the original files under `data/raw/`. Keep the original filenames and preserve the source data. Do not commit credentials or unrelated personal data.
+
+The processed Parquet directory is excluded from Git. Generate it by running the preprocessing script before running analyses or models.
+
+## Environment setup
+
+Recommended environment:
+
+- Python 3.10 or 3.11
+- Java 11
+- Apache Spark / PySpark 3.5.6
+
+Create and activate a virtual environment, then install the Big Data dependencies:
 
 ```bash
-docker pull mohammedmoneer1998/book-management:v1.1
+python -m venv .venv
 ```
 
-## Requirements
+Windows PowerShell:
 
-- Docker Desktop
-- Docker Compose
-- A web browser
-
-## Configuration
-
-Create a local `.env` file in the project directory using `.env.example` as a template. Do not commit `.env` or publish real credentials.
-
-Example configuration:
-
-```dotenv
-POSTGRES_DB=bookdb
-POSTGRES_USER=bookuser
-POSTGRES_PASSWORD=replace_with_a_strong_password
-DATABASE_URL=postgresql://bookuser:replace_with_a_strong_password@db:5432/bookdb
+```powershell
+.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+pip install -r requirements-bigdata.txt
 ```
 
-The username, password, and database name in `DATABASE_URL` must match the PostgreSQL configuration.
-
-Use a strong password for real deployments.
-
-## Run the Application
-
-1. Open a terminal in the project directory.
-2. Create and configure the `.env` file.
-3. Start the services:
+Linux / WSL:
 
 ```bash
-docker compose up -d
+source .venv/bin/activate
+python -m pip install --upgrade pip
+pip install -r requirements-bigdata.txt
 ```
 
-4. Check the service status:
+Check the runtime:
 
 ```bash
-docker compose ps
+java -version
+python --version
+python -c "import pyspark; print(pyspark.__version__)"
 ```
 
-5. Open the application in your browser:
+## Execution order
 
-http://localhost:5000
+Run commands from the repository root so the relative input/output paths resolve consistently.
 
-## Database
-
-The application connects to PostgreSQL using `DATABASE_URL`.
-
-The `books` table contains:
-
-- `id`: Auto-generated primary key.
-- `title`: Book title, up to 200 characters.
-- `author`: Author name, up to 150 characters.
-
-The application initializes the table when it starts.
-
-## Data Persistence
-
-Docker Compose uses the named volume `postgres_data` to store PostgreSQL data. Data persists when containers are stopped or recreated, as long as the volume is retained.
-
-**Warning:** Do not use `docker compose down -v` unless you intend to delete the database volume and its stored data.
-
-## Useful Commands
-
-Check running services:
+1. Inspect the raw dataset:
 
 ```bash
-docker compose ps
+python analysis/inspect_dataset.py
 ```
 
-View application logs:
+2. Clean and prepare the data (creates the processed Parquet dataset):
 
 ```bash
-docker compose logs --tail=100 web
+python analysis/clean_with_spark.py
 ```
 
-View database logs:
+3. Run data-quality checks and exploratory analyses:
 
 ```bash
-docker compose logs --tail=100 db
+python models/data_quality_audit.py
+python analysis/quality_checks.py
+python analysis/relationship_checks.py
+python analysis/eda_with_spark.py
+python analysis/extended_eda.py
 ```
 
-Restart services:
+4. Train and evaluate the models:
 
 ```bash
-docker compose restart
+python models/als_recommender.py
+python models/random_forest_rating.py
+python models/fair_model_comparison.py
+python models/als_tuning.py
 ```
 
-Stop and remove containers without deleting the named volume:
+5. Run the repeated scalability experiment (this may take longer):
 
 ```bash
-docker compose down
+python models/scalability_experiment_repeated.py
 ```
 
-## Security
+6. Generate figures from the saved analysis outputs:
 
-- Never commit `.env` or publish real credentials.
-- Keep `.env` excluded through `.gitignore` and `.dockerignore`.
-- Use strong database passwords.
-- Do not expose PostgreSQL publicly unless required and properly secured.
+```bash
+python analysis/create_visualizations.py
+```
+
+Run each stage only after the previous stage has completed successfully. If a script reports that an input path is missing, confirm that you are in the repository root and that preprocessing generated the expected Parquet directory.
+
+## Evaluation approach
+
+The project reports regression metrics such as **RMSE** and **MAE**; lower values indicate lower prediction error. Model comparisons should be interpreted together with the number of evaluated rows and prediction coverage. In particular, ALS may omit predictions for unseen users or items when cold-start handling is enabled.
+
+The scalability experiment compares fixed data samples at 25%, 50%, and 100% of the available explicit-rating records. It repeats each size to report average runtime and standard deviation. Runtime values are environment-dependent and should be regenerated on the machine used for the final report.
+
+## Results
+
+Generated metrics and figures are stored under `analysis/results/`. These are experiment outputs, not a substitute for rerunning the scripts. Regenerate them after changing code, input data, Spark settings, or model parameters.
+
+## Reproducibility checklist
+
+- [ ] Confirm all three raw CSV files are present under `data/raw/`.
+- [ ] Confirm Java and PySpark versions.
+- [ ] Install dependencies from `requirements-bigdata.txt`.
+- [ ] Run preprocessing from the repository root.
+- [ ] Run quality checks and EDA.
+- [ ] Run each model and save its metrics.
+- [ ] Run the repeated scalability experiment.
+- [ ] Regenerate visualizations.
+- [ ] Record the actual machine, Java, Python, and Spark configuration in the final report.
+- [ ] Verify that the report's tables and figures match the latest generated result files.
+
+## Notes
+
+- `requirements.txt`, `Dockerfile`, and `docker-compose.yml` currently belong to the separate Flask/PostgreSQL application setup. Use `requirements-bigdata.txt` for this Spark analytics project.
+- Do not interpret historical result files as proof that the current code runs successfully in a clean environment.
+- The project report should document the research questions, literature review, data-quality decisions, model limitations, and the interpretation of every experiment.
 
 ## Author
 
