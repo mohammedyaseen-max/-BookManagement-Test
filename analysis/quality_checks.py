@@ -1,7 +1,8 @@
-ROOT = Path(__file__).resolve().parents[1]
 import csv
 from pathlib import Path
 from collections import Counter
+
+ROOT = Path(__file__).resolve().parents[1]
 
 DATA = ROOT / "data" / "raw"
 
