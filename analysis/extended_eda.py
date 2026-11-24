@@ -1,5 +1,8 @@
-﻿from pyspark.sql import SparkSession
+from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
 
 spark = (
     SparkSession.builder
@@ -9,8 +12,8 @@ spark = (
 )
 spark.sparkContext.setLogLevel("ERROR")
 
-base = "/project/data/processed"
-out = "/project/analysis/results"
+base = str(ROOT / "data" / "processed")
+out = str(ROOT / "analysis" / "results")
 
 books = spark.read.parquet(f"{base}/books")
 users = spark.read.parquet(f"{base}/users")
