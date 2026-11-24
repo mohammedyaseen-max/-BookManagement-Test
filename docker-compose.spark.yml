@@ -1,0 +1,16 @@
+services:
+  spark:
+    build:
+      context: .
+      dockerfile: Dockerfile.spark
+    container_name: bookcrossing-spark
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+    environment:
+      PYSPARK_PYTHON: python3
+      PYSPARK_DRIVER_PYTHON: python3
+      PYTHONUNBUFFERED: "1"
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
