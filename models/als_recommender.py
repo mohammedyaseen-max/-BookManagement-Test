@@ -11,7 +11,7 @@ from pyspark.ml.feature import StringIndexer
 from pyspark.ml.recommendation import ALS
 from pyspark.ml.evaluation import RegressionEvaluator
 
-ROOT = Path('/project')
+ROOT = Path(__file__).resolve().parents[1]
 INPUT = str(ROOT / 'data' / 'processed' / 'ratings_enriched')
 OUTPUT = str(ROOT / 'analysis' / 'results' / 'als_recommender')
 
