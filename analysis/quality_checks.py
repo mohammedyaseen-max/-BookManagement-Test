@@ -1,8 +1,9 @@
-﻿import csv
+ROOT = Path(__file__).resolve().parents[1]
+import csv
 from pathlib import Path
 from collections import Counter
 
-DATA = Path("/project/data/raw")
+DATA = ROOT / "data" / "raw"
 
 def rows(name):
     with (DATA / name).open(encoding="latin-1", newline="") as f:
