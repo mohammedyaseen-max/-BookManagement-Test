@@ -69,8 +69,8 @@ The processed Parquet directory is excluded from Git. Generate it by running the
 
 Recommended environment:
 
-- Python 3.10 or 3.11
-- Java 11
+- Python 3.11
+- Java 17 (OpenJDK / Temurin)
 - Apache Spark / PySpark 3.5.6
 
 Create and activate a virtual environment, then install the Big Data dependencies:
@@ -102,6 +102,58 @@ java -version
 python --version
 python -c "import pyspark; print(pyspark.__version__)"
 ```
+
+## Run with Docker (recommended for a consistent environment)
+
+The Spark environment is separate from the legacy Flask application. It uses `Dockerfile.spark` and `docker-compose.spark.yml`.
+
+Build and start the Spark container from the repository root:
+
+```powershell
+docker compose -f docker-compose.spark.yml up -d --build
+docker compose -f docker-compose.spark.yml ps
+```
+
+Run project commands inside the container (the repository is mounted at `/workspace`):
+
+```powershell
+docker compose -f docker-compose.spark.yml exec spark python analysis/inspect_dataset.py
+docker compose -f docker-compose.spark.yml exec spark python analysis/clean_with_spark.py
+```
+
+After preprocessing succeeds, run the EDA and model commands listed below using the same `docker compose ... exec spark python ...` pattern. For example:
+
+```powershell
+docker compose -f docker-compose.spark.yml exec spark python models/fair_model_comparison.py
+```
+
+Stop the Spark container when finished:
+
+```powershell
+docker compose -f docker-compose.spark.yml down
+```
+
+## Run directly on Windows PowerShell
+
+Install Java 17 and Python 3.11, then from the repository root:
+
+```powershell
+java -version
+python --version
+python -m venv .venv
+.venv\\Scripts\\Activate.ps1
+python -m pip install --upgrade pip
+pip install -r requirements-bigdata.txt
+```
+
+If PowerShell blocks environment activation, run this once in the current terminal:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.venv\\Scripts\\Activate.ps1
+```
+
+All analytics scripts now resolve data and output paths relative to their own file locations, so run them from the repository root in either environment.
 
 ## Execution order
 
