@@ -1,4 +1,4 @@
-﻿
+
 import csv
 import json
 import random
@@ -8,7 +8,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-ROOT = Path("/project")
+ROOT = Path(__file__).resolve().parents[1]
 RESULTS = ROOT / "analysis" / "results"
 OUT = RESULTS / "figures"
 OUT.mkdir(parents=True, exist_ok=True)
