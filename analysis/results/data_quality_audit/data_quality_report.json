@@ -1,0 +1,321 @@
+{
+  "audit": "Book-Crossing processed dataset quality audit",
+  "created_utc": "2026-10-24T16:04:50.098163+00:00",
+  "datasets_checked": [
+    "books",
+    "users",
+    "ratings",
+    "ratings_enriched"
+  ],
+  "summary": [
+    {
+      "dataset": "books",
+      "path": "data/processed/books",
+      "rows": 271360,
+      "columns": 8,
+      "rows_with_any_missing_or_blank": 4691,
+      "exact_duplicate_rows": 0
+    },
+    {
+      "dataset": "users",
+      "path": "data/processed/users",
+      "rows": 278859,
+      "columns": 3,
+      "rows_with_any_missing_or_blank": 111678,
+      "exact_duplicate_rows": 0
+    },
+    {
+      "dataset": "ratings",
+      "path": "data/processed/ratings",
+      "rows": 1149780,
+      "columns": 3,
+      "rows_with_any_missing_or_blank": 0,
+      "exact_duplicate_rows": 0
+    },
+    {
+      "dataset": "ratings_enriched",
+      "path": "data/processed/ratings_enriched",
+      "rows": 1031139,
+      "columns": 9,
+      "rows_with_any_missing_or_blank": 290082,
+      "exact_duplicate_rows": 0
+    }
+  ],
+  "column_missingness": [
+    {
+      "dataset": "books",
+      "column": "ISBN",
+      "data_type": "string",
+      "null_count": 0,
+      "blank_count": 0,
+      "null_or_blank_pct": 0.0
+    },
+    {
+      "dataset": "books",
+      "column": "Book-Title",
+      "data_type": "string",
+      "null_count": 0,
+      "blank_count": 0,
+      "null_or_blank_pct": 0.0
+    },
+    {
+      "dataset": "books",
+      "column": "Book-Author",
+      "data_type": "string",
+      "null_count": 1,
+      "blank_count": 0,
+      "null_or_blank_pct": 0.0004
+    },
+    {
+      "dataset": "books",
+      "column": "Year-Of-Publication",
+      "data_type": "int",
+      "null_count": 4688,
+      "blank_count": 0,
+      "null_or_blank_pct": 1.7276
+    },
+    {
+      "dataset": "books",
+      "column": "Publisher",
+      "data_type": "string",
+      "null_count": 2,
+      "blank_count": 0,
+      "null_or_blank_pct": 0.0007
+    },
+    {
+      "dataset": "books",
+      "column": "Image-URL-S",
+      "data_type": "string",
+      "null_count": 0,
+      "blank_count": 0,
+      "null_or_blank_pct": 0.0
+    },
+    {
+      "dataset": "books",
+      "column": "Image-URL-M",
+      "data_type": "string",
+      "null_count": 0,
+      "blank_count": 0,
+      "null_or_blank_pct": 0.0
+    },
+    {
+      "dataset": "books",
+      "column": "Image-URL-L",
+      "data_type": "string",
+      "null_count": 3,
+      "blank_count": 0,
+      "null_or_blank_pct": 0.0011
+    },
+    {
+      "dataset": "users",
+      "column": "User-ID",
+      "data_type": "string",
+      "null_count": 1,
+      "blank_count": 0,
+      "null_or_blank_pct": 0.0004
+    },
+    {
+      "dataset": "users",
+      "column": "Location",
+      "data_type": "string",
+      "null_count": 0,
+      "blank_count": 0,
+      "null_or_blank_pct": 0.0
+    },
+    {
+      "dataset": "users",
+      "column": "Age",
+      "data_type": "double",
+      "null_count": 111678,
+      "blank_count": 0,
+      "null_or_blank_pct": 40.0482
+    },
+    {
+      "dataset": "ratings",
+      "column": "User-ID",
+      "data_type": "string",
+      "null_count": 0,
+      "blank_count": 0,
+      "null_or_blank_pct": 0.0
+    },
+    {
+      "dataset": "ratings",
+      "column": "ISBN",
+      "data_type": "string",
+      "null_count": 0,
+      "blank_count": 0,
+      "null_or_blank_pct": 0.0
+    },
+    {
+      "dataset": "ratings",
+      "column": "Book-Rating",
+      "data_type": "int",
+      "null_count": 0,
+      "blank_count": 0,
+      "null_or_blank_pct": 0.0
+    },
+    {
+      "dataset": "ratings_enriched",
+      "column": "User-ID",
+      "data_type": "string",
+      "null_count": 0,
+      "blank_count": 0,
+      "null_or_blank_pct": 0.0
+    },
+    {
+      "dataset": "ratings_enriched",
+      "column": "ISBN",
+      "data_type": "string",
+      "null_count": 0,
+      "blank_count": 0,
+      "null_or_blank_pct": 0.0
+    },
+    {
+      "dataset": "ratings_enriched",
+      "column": "Book-Rating",
+      "data_type": "int",
+      "null_count": 0,
+      "blank_count": 0,
+      "null_or_blank_pct": 0.0
+    },
+    {
+      "dataset": "ratings_enriched",
+      "column": "Book-Title",
+      "data_type": "string",
+      "null_count": 0,
+      "blank_count": 0,
+      "null_or_blank_pct": 0.0
+    },
+    {
+      "dataset": "ratings_enriched",
+      "column": "Book-Author",
+      "data_type": "string",
+      "null_count": 1,
+      "blank_count": 0,
+      "null_or_blank_pct": 0.0001
+    },
+    {
+      "dataset": "ratings_enriched",
+      "column": "Year-Of-Publication",
+      "data_type": "int",
+      "null_count": 14170,
+      "blank_count": 0,
+      "null_or_blank_pct": 1.3742
+    },
+    {
+      "dataset": "ratings_enriched",
+      "column": "Publisher",
+      "data_type": "string",
+      "null_count": 2,
+      "blank_count": 0,
+      "null_or_blank_pct": 0.0002
+    },
+    {
+      "dataset": "ratings_enriched",
+      "column": "Age",
+      "data_type": "double",
+      "null_count": 279578,
+      "blank_count": 0,
+      "null_or_blank_pct": 27.1135
+    },
+    {
+      "dataset": "ratings_enriched",
+      "column": "Location",
+      "data_type": "string",
+      "null_count": 0,
+      "blank_count": 0,
+      "null_or_blank_pct": 0.0
+    }
+  ],
+  "checks": [
+    {
+      "dataset": "books",
+      "check": "exact_duplicate_rows",
+      "status": "PASS",
+      "count": 0,
+      "details": "Exact duplicate rows across all columns"
+    },
+    {
+      "dataset": "books",
+      "check": "missing_or_blank_ISBN",
+      "status": "PASS",
+      "count": 0,
+      "details": "Missing/blank book identifiers"
+    },
+    {
+      "dataset": "users",
+      "check": "exact_duplicate_rows",
+      "status": "PASS",
+      "count": 0,
+      "details": "Exact duplicate rows across all columns"
+    },
+    {
+      "dataset": "users",
+      "check": "missing_or_blank_User-ID",
+      "status": "REVIEW",
+      "count": 1,
+      "details": "Missing/blank user identifiers"
+    },
+    {
+      "dataset": "ratings",
+      "check": "exact_duplicate_rows",
+      "status": "PASS",
+      "count": 0,
+      "details": "Exact duplicate rows across all columns"
+    },
+    {
+      "dataset": "ratings",
+      "check": "rating_outside_0_to_10",
+      "status": "PASS",
+      "count": 0,
+      "details": "Rating values outside 0..10"
+    },
+    {
+      "dataset": "ratings",
+      "check": "zero_rating_rows",
+      "status": "INFO",
+      "count": 716109,
+      "details": "Book-Crossing rating 0 treated separately from explicit ratings"
+    },
+    {
+      "dataset": "ratings",
+      "check": "explicit_rating_rows_1_to_10",
+      "status": "INFO",
+      "count": 433671,
+      "details": "Explicit ratings available for rating prediction"
+    },
+    {
+      "dataset": "ratings_enriched",
+      "check": "exact_duplicate_rows",
+      "status": "PASS",
+      "count": 0,
+      "details": "Exact duplicate rows across all columns"
+    },
+    {
+      "dataset": "ratings_enriched",
+      "check": "rating_outside_0_to_10",
+      "status": "PASS",
+      "count": 0,
+      "details": "Rating values outside 0..10"
+    },
+    {
+      "dataset": "ratings_enriched",
+      "check": "zero_rating_rows",
+      "status": "INFO",
+      "count": 647296,
+      "details": "Book-Crossing rating 0 treated separately from explicit ratings"
+    },
+    {
+      "dataset": "ratings_enriched",
+      "check": "explicit_rating_rows_1_to_10",
+      "status": "INFO",
+      "count": 383843,
+      "details": "Explicit ratings available for rating prediction"
+    }
+  ],
+  "interpretation_notes": [
+    "Exact duplicates compare all columns; repeated user-book ratings are not automatically duplicates unless all columns match.",
+    "Rating 0 is reported separately and should not be treated as an explicit rating in rating-prediction experiments.",
+    "REVIEW means inspect the count and decide whether it is expected; it is not automatically a pipeline failure."
+  ]
+}

@@ -1,0 +1,6 @@
+activity_group,user_count,average_ratings_per_user
+1 rating,45382,1.0
+2-5 ratings,20404,2.89
+21-100 ratings,3033,41.61
+6-20 ratings,8498,10.14
+More than 100 ratings,488,239.64

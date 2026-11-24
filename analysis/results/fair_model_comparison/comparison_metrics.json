@@ -1,0 +1,73 @@
+{
+  "task": "Fair comparison of explicit book-rating prediction models",
+  "input_parquet": "data/processed/ratings_enriched",
+  "rating_filter": "Book-Rating 1 through 10; rating 0 excluded",
+  "usable_interactions": 383843,
+  "split": {
+    "method": "randomSplit",
+    "fractions": [
+      0.8,
+      0.2
+    ],
+    "seed": 42
+  },
+  "train_rows": 307408,
+  "test_rows": 76435,
+  "global_mean_rating_from_train": 7.625309035548847,
+  "all_test_rows": {
+    "global_mean_baseline": {
+      "rmse": 1.840446123914582,
+      "mae": 1.4933944577041567,
+      "evaluated_rows": 76435
+    },
+    "random_forest": {
+      "numTrees": 40,
+      "maxDepth": 8,
+      "features": [
+        "user_avg_rating",
+        "user_rating_count",
+        "book_avg_rating",
+        "book_rating_count"
+      ],
+      "rmse": 1.8077409926917973,
+      "mae": 1.3886678419782534,
+      "evaluated_rows": 76435,
+      "coverage": 1.0,
+      "training_seconds": 11.13
+    },
+    "als": {
+      "rank": 10,
+      "regParam": 0.1,
+      "maxIter": 10,
+      "rmse": 2.4741267035614505,
+      "mae": 1.9162977943675201,
+      "evaluated_rows": 48016,
+      "coverage": 0.6281938902335318,
+      "training_seconds": 9.42
+    }
+  },
+  "same_test_rows_comparison": {
+    "description": "All three methods are scored on the subset where ALS returns a prediction.",
+    "common_rows": 48016,
+    "global_mean_baseline": {
+      "rmse": 1.8096544002643968,
+      "mae": 1.467677670113536
+    },
+    "random_forest": {
+      "rmse": 1.8164538509517074,
+      "mae": 1.3788507853077723,
+      "evaluated_rows": 48016
+    },
+    "als": {
+      "rmse": 2.4741267035614505,
+      "mae": 1.9162977943675201,
+      "evaluated_rows": 48016
+    }
+  },
+  "notes": [
+    "Lower RMSE and MAE are better.",
+    "ALS coverage is lower when test users or items were not represented in training.",
+    "Random Forest aggregate features are computed from training data only.",
+    "Training times are specific to this machine, Docker image, and current local Spark configuration."
+  ]
+}

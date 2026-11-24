@@ -1,0 +1,23 @@
+{
+  "task": "Explicit book-rating prediction",
+  "input_parquet": "data/processed/ratings_enriched",
+  "rating_filter": "Book-Rating 1 through 10; rating 0 excluded",
+  "usable_interactions": 383843,
+  "train_rows": 307392,
+  "test_rows": 76451,
+  "als_evaluable_test_rows_after_cold_start_drop": 47694,
+  "train_global_mean_rating": 7.627326020195711,
+  "als": {
+    "rank": 10,
+    "maxIter": 10,
+    "regParam": 0.1,
+    "rmse": 2.4538148662834294,
+    "mae": 1.9052531091012
+  },
+  "global_mean_baseline": {
+    "rmse": 1.8422987763858754,
+    "mae": 1.4928961903721043
+  },
+  "note": "Lower RMSE/MAE is better. ALS metrics use only test rows for which ALS produced a prediction; the baseline uses all test rows. Compare coverage as well as error.",
+  "sample_recommendation_user_id": 11676
+}

@@ -1,0 +1,4 @@
+dataset_fraction,dataset_label,runs,input_rows,feature_engineering_seconds_mean,feature_engineering_seconds_stddev,training_seconds_mean,training_seconds_stddev,prediction_seconds_mean,prediction_seconds_stddev,total_pipeline_seconds_mean,total_pipeline_seconds_stddev,rmse_mean,rmse_stddev,mae_mean,mae_stddev
+0.25,25_percent,3,95671,1.7567,1.0393,2.54,0.6864,0.3233,0.1826,4.9667,2.1051,1.849,0.0,1.4316,0.0
+0.5,50_percent,3,191824,1.05,0.1275,2.7367,0.0873,0.21,0.0216,4.1767,0.229,1.8369,0.0,1.4128,0.0
+1.0,100_percent,3,383843,1.14,0.1337,4.2033,0.2004,0.2433,0.017,5.7567,0.3146,1.8077,0.0,1.3887,0.0

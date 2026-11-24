@@ -1,0 +1,30 @@
+{
+  "task": "Explicit book-rating prediction using Spark MLlib Random Forest",
+  "input_parquet": "data/processed/ratings_enriched",
+  "rating_filter": "Book-Rating 1 through 10; rating 0 excluded",
+  "feature_engineering": "User/book aggregates computed from training split only",
+  "total_usable_interactions": 383843,
+  "train_rows": 307408,
+  "test_rows": 76435,
+  "prediction_rows": 76435,
+  "coverage": 1.0,
+  "global_mean_rating_from_train": 7.625309035548847,
+  "random_forest": {
+    "numTrees": 40,
+    "maxDepth": 8,
+    "features": [
+      "user_avg_rating",
+      "user_rating_count",
+      "book_avg_rating",
+      "book_rating_count"
+    ],
+    "rmse": 1.7990021335310749,
+    "mae": 1.3830431414159616,
+    "training_seconds": 25.36
+  },
+  "global_mean_baseline_same_test": {
+    "rmse": 1.840446123914582,
+    "mae": 1.4933944577041567
+  },
+  "note": "Lower RMSE and MAE are better. Feature aggregates are calculated using training data only."
+}

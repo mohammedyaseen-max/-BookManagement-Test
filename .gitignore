@@ -1,0 +1,28 @@
+﻿# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Python virtual environments
+.venv/
+venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Temporary files
+tmp/
+temp/
+
+# Archives
+*.zip
+*.rar
+*.7z
+venv/
+.venv/
+# Spark generated data
+data/processed/
+# Spark metadata files
+**/*.crc
+**/_SUCCESS

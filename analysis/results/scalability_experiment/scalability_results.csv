@@ -1,0 +1,4 @@
+dataset_fraction,dataset_label,input_rows,train_rows,test_rows,prediction_rows,coverage,feature_engineering_seconds,training_seconds,prediction_seconds,total_pipeline_seconds,rmse,mae,algorithm,numTrees,maxDepth,seed_sample,seed_split
+0.25,25_percent,95699,76772,18927,18927,1.0,3.31,3.31,0.36,6.98,1.860903484084664,1.4395172844520783,Spark MLlib RandomForestRegressor,40,8,2026,42
+0.5,50_percent,191607,153518,38089,38089,1.0,1.59,2.87,0.25,4.71,1.8261048451049038,1.408526544015729,Spark MLlib RandomForestRegressor,40,8,2026,42
+1.0,100_percent,383843,307408,76435,76435,1.0,1.14,4.11,0.24,5.49,1.8077409926917973,1.3886678419782537,Spark MLlib RandomForestRegressor,40,8,2026,42

@@ -1,0 +1,41 @@
+[
+  {
+    "rank": 10,
+    "regParam": 0.1,
+    "maxIter": 10,
+    "common_test_rows": 47831,
+    "als_evaluable_rows": 47831,
+    "coverage_on_common_test": 1.0,
+    "rmse": 2.4776239069258894,
+    "mae": 1.920824835843272,
+    "training_seconds": 15.05,
+    "baseline_rmse_same_test": 1.8116557804725588,
+    "baseline_mae_same_test": 1.4706415381185558
+  },
+  {
+    "rank": 20,
+    "regParam": 0.1,
+    "maxIter": 10,
+    "common_test_rows": 47831,
+    "als_evaluable_rows": 47831,
+    "coverage_on_common_test": 1.0,
+    "rmse": 2.4717918209687513,
+    "mae": 1.9325116111002176,
+    "training_seconds": 28.74,
+    "baseline_rmse_same_test": 1.8116557804725588,
+    "baseline_mae_same_test": 1.4706415381185558
+  },
+  {
+    "rank": 10,
+    "regParam": 0.05,
+    "maxIter": 15,
+    "common_test_rows": 47831,
+    "als_evaluable_rows": 47831,
+    "coverage_on_common_test": 1.0,
+    "rmse": 2.670049424142291,
+    "mae": 2.075701961817656,
+    "training_seconds": 15.57,
+    "baseline_rmse_same_test": 1.8116557804725588,
+    "baseline_mae_same_test": 1.4706415381185558
+  }
+]

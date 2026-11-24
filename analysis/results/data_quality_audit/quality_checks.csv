@@ -1,0 +1,13 @@
+﻿dataset,check,status,count,details
+books,exact_duplicate_rows,PASS,0,Exact duplicate rows across all columns
+books,missing_or_blank_ISBN,PASS,0,Missing/blank book identifiers
+users,exact_duplicate_rows,PASS,0,Exact duplicate rows across all columns
+users,missing_or_blank_User-ID,REVIEW,1,Missing/blank user identifiers
+ratings,exact_duplicate_rows,PASS,0,Exact duplicate rows across all columns
+ratings,rating_outside_0_to_10,PASS,0,Rating values outside 0..10
+ratings,zero_rating_rows,INFO,716109,Book-Crossing rating 0 treated separately from explicit ratings
+ratings,explicit_rating_rows_1_to_10,INFO,433671,Explicit ratings available for rating prediction
+ratings_enriched,exact_duplicate_rows,PASS,0,Exact duplicate rows across all columns
+ratings_enriched,rating_outside_0_to_10,PASS,0,Rating values outside 0..10
+ratings_enriched,zero_rating_rows,INFO,647296,Book-Crossing rating 0 treated separately from explicit ratings
+ratings_enriched,explicit_rating_rows_1_to_10,INFO,383843,Explicit ratings available for rating prediction
