@@ -1,7 +1,8 @@
-﻿import csv
+import csv
 from pathlib import Path
 
-DATA = Path("/project/data/raw")
+ROOT = Path(__file__).resolve().parents[1]
+DATA = ROOT / "data" / "raw"
 
 def load_keys(filename, column):
     result = set()
