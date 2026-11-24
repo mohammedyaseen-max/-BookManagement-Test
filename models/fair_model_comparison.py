@@ -1,3 +1,5 @@
+from pathlib import Path
+ROOT = Path(__file__).resolve().parents[1]
 import json
 import os
 import time
@@ -17,8 +19,8 @@ spark = (
 )
 spark.sparkContext.setLogLevel("WARN")
 
-INPUT = "data/processed/ratings_enriched"
-OUTPUT = "analysis/results/fair_model_comparison"
+INPUT = str(ROOT / "data" / "processed" / "ratings_enriched")
+OUTPUT = str(ROOT / "analysis" / "results" / "fair_model_comparison")
 os.makedirs(OUTPUT, exist_ok=True)
 
 # Load the same explicit-rating dataset for every model.
