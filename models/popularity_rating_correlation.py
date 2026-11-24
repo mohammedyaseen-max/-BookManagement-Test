@@ -3,6 +3,9 @@ from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 from pyspark.sql.window import Window
 import os
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
 
 # =========================================================
 # 1. Initialize Spark
@@ -16,7 +19,7 @@ spark = (
 
 spark.sparkContext.setLogLevel("WARN")
 
-BASE_DIR = "/project"
+BASE_DIR = str(ROOT)
 RATINGS_PATH = os.path.join(BASE_DIR, "data", "processed", "ratings")
 OUTPUT_DIR = os.path.join(
     BASE_DIR, "analysis", "results", "popularity_correlation"
