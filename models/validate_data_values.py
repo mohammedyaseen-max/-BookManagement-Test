@@ -1,3 +1,5 @@
+from pathlib import Path
+ROOT = Path(__file__).resolve().parents[1]
 
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
@@ -8,8 +10,8 @@ spark = (
     .getOrCreate()
 )
 
-books = spark.read.parquet("data/processed/books")
-users = spark.read.parquet("data/processed/users")
+books = spark.read.parquet(str(ROOT / "data" / "processed" / "books"))
+users = spark.read.parquet(str(ROOT / "data" / "processed" / "users"))
 
 print("\n=== BOOK PUBLICATION YEAR CHECK ===")
 
