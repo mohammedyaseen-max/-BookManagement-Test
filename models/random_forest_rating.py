@@ -1,3 +1,5 @@
+from pathlib import Path
+ROOT = Path(__file__).resolve().parents[1]
 import json
 import os
 import time
@@ -17,8 +19,8 @@ spark = (
 )
 spark.sparkContext.setLogLevel("WARN")
 
-INPUT = "data/processed/ratings_enriched"
-OUTPUT = "analysis/results/random_forest_rating"
+INPUT = str(ROOT / "data" / "processed" / "ratings_enriched")
+OUTPUT = str(ROOT / "analysis" / "results" / "random_forest_rating")
 os.makedirs(OUTPUT, exist_ok=True)
 
 # Load explicit ratings and valid numeric user IDs.
