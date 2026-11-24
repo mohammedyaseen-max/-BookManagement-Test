@@ -1,5 +1,8 @@
-﻿
+
+from pathlib import Path
 from pyspark.sql import SparkSession, functions as F
+
+ROOT = Path(__file__).resolve().parents[1]
 
 spark = (
     SparkSession.builder
@@ -10,7 +13,7 @@ spark = (
 
 spark.sparkContext.setLogLevel("ERROR")
 
-BASE = "/project/data/processed"
+BASE = str(ROOT / "data" / "processed")
 
 results = []
 
