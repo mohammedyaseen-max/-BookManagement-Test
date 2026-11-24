@@ -1,3 +1,5 @@
+from pathlib import Path
+ROOT = Path(__file__).resolve().parents[1]
 import csv
 import json
 import os
@@ -18,8 +20,8 @@ spark = (
 )
 spark.sparkContext.setLogLevel("WARN")
 
-INPUT = "data/processed/ratings_enriched"
-OUTPUT = "analysis/results/scalability_experiment_repeated"
+INPUT = str(ROOT / "data" / "processed" / "ratings_enriched")
+OUTPUT = str(ROOT / "analysis" / "results" / "scalability_experiment_repeated")
 REPEATS = 3
 os.makedirs(OUTPUT, exist_ok=True)
 
