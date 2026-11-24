@@ -1,4 +1,6 @@
-﻿from pyspark.sql import SparkSession
+ROOT = Path(__file__).resolve().parents[1]
+from pathlib import Path
+from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 
 spark = (
@@ -10,8 +12,8 @@ spark = (
 
 spark.sparkContext.setLogLevel("WARN")
 
-base = "/project/data/raw"
-out = "/project/data/processed"
+base = str(ROOT / "data" / "raw")
+out = str(ROOT / "data" / "processed")
 
 print("\n=== 1. READ DATA ===")
 
