@@ -1,7 +1,8 @@
-ROOT = Path(__file__).resolve().parents[1]
 from pathlib import Path
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
+
+ROOT = Path(__file__).resolve().parents[1]
 
 spark = (
     SparkSession.builder
