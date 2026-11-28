@@ -11,6 +11,27 @@ services:
       PYSPARK_PYTHON: python3
       PYSPARK_DRIVER_PYTHON: python3
       PYTHONUNBUFFERED: "1"
+      MONGO_URI: ${MONGO_URI:-mongodb://mongodb:27017/}
     stdin_open: true
     tty: true
     restart: unless-stopped
+
+  mongodb:
+    image: mongo:7.0
+    container_name: bookcrossing-mongodb
+    environment:
+      MONGO_INITDB_DATABASE: book_analytics
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    restart: unless-stopped
+
+volumes:
+  mongodb_data:
