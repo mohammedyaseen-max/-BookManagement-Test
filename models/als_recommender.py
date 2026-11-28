@@ -6,6 +6,7 @@ Outputs are written beneath analysis/results/als_recommender.
 """
 from pathlib import Path
 import json
+import os
 from pyspark.sql import SparkSession, functions as F
 from pyspark.ml.feature import StringIndexer
 from pyspark.ml.recommendation import ALS
@@ -123,6 +124,45 @@ try:
                     .join(lookup, 'item_id', 'left')
                     .orderBy(F.desc('predicted_rating')))
         exploded.coalesce(1).write.mode('overwrite').option('header', True).csv(OUTPUT + '/sample_top10_recommendations')
+
+        # MongoDB is an optional serving layer. Spark remains the source of truth;
+        # failure to connect must never invalidate the ALS experiment.
+        try:
+            from pymongo import MongoClient
+            from datetime import datetime, timezone
+
+            mongo_uri = os.getenv('MONGO_URI', 'mongodb://localhost:27017/')
+            mongo_client = MongoClient(mongo_uri, serverSelectionTimeoutMS=3000)
+            mongo_client.admin.command('ping')
+            collection = mongo_client['book_analytics']['als_top_recommendations']
+
+            recommendation_docs = []
+            for rank, row in enumerate(
+                exploded.select('user_id', 'isbn', 'predicted_rating').collect(), start=1
+            ):
+                recommendation_docs.append({
+                    'user_id': int(row['user_id']),
+                    'isbn': row['isbn'],
+                    'predicted_rating': float(row['predicted_rating']),
+                    'rank': rank,
+                    'generated_at': datetime.now(timezone.utc).isoformat()
+                })
+
+            if recommendation_docs:
+                collection.delete_many({'user_id': chosen_user})
+                collection.insert_many(recommendation_docs)
+                print(
+                    f"Stored {len(recommendation_docs)} recommendations for "
+                    f"user {chosen_user} in book_analytics.als_top_recommendations"
+                )
+            else:
+                print("MongoDB export skipped: ALS returned no recommendation documents.")
+            mongo_client.close()
+        except Exception as mongo_error:
+            print(
+                "WARNING: MongoDB export was skipped; ALS results were saved locally. "
+                f"Reason: {mongo_error}"
+            )
         metrics['sample_recommendation_user_id'] = chosen_user
         with open(out / 'metrics.json', 'w', encoding='utf-8') as f:
             json.dump(metrics, f, ensure_ascii=False, indent=2)
